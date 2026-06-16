@@ -1,5 +1,9 @@
 package Modelo;
 
+import Enums.EstadoVehiculo;
+import Enums.TipoCombustible;
+import Enums.TipoVehiculo;
+
 public class Vehiculo {
     private String patente;
     private String marca;

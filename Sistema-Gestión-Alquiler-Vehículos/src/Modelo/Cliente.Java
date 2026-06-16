@@ -1,5 +1,6 @@
-package modelo;
+package Modelo;
 
+import Enums.EstadoCliente;
 import java.time.LocalDate;
 
 public class Cliente {
@@ -11,8 +12,7 @@ public class Cliente {
     private EstadoCliente estado;
     private LocalDate fechaRegistro;
 
-    public Cliente(String dniCuit, String nombre, String telefono, 
-                   String email, String direccion) {
+    public Cliente(String dniCuit, String nombre, String telefono, String email, String direccion) {
         this.dniCuit = dniCuit;
         this.nombre = nombre;
         this.telefono = telefono;
