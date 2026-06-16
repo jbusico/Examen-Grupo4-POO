@@ -41,6 +41,18 @@ public abstract class Alquiler {
 
     protected abstract double obtenerPorcentaje();
 
+    public void cambiarEstado(EstadoAlquiler nuevoEstado) {
+        this.estado = nuevoEstado;
+    }
+
+    public boolean correspondeAVehiculo(Vehiculo v) {
+        return this.vehiculo.getPatente().equals(v.getPatente());
+    }
+
+    public boolean seSuperpone(LocalDate inicio, LocalDate fin) {
+        return !fin.isBefore(this.fechaInicio) && !inicio.isAfter(this.fechaDevolucionEstimada);
+    }
+
     public int getCantidadDias() {
         if (fechaDevolucionReal != null) {
             return (int) java.time.temporal.ChronoUnit.DAYS.between(fechaInicio, fechaDevolucionReal);
