@@ -1,10 +1,9 @@
 package Modelo;
 
+import Enums.EstadoAlquiler;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
-import Enums.EstadoAlquiler;
 
 public abstract class Alquiler {
     private int idAlquiler;
@@ -31,6 +30,11 @@ public abstract class Alquiler {
         this.estado = EstadoAlquiler.INGRESADO;
         this.pagos = new ArrayList<>();
         this.kilometrajeInicial = vehiculo.getKilometraje();
+    }
+
+
+    public double calcularImporteBase() {
+        return this.getCantidadDias() * this.getVehiculo().getValorDiario();
     }
 
     public abstract double calcularImporteTotal();
