@@ -1,8 +1,11 @@
 package Modelo;
 
+import Enums.EstadoAlquiler;
 import Enums.EstadoVehiculo;
 import Enums.TipoCombustible;
 import Enums.TipoVehiculo;
+import java.time.LocalDate;
+import java.util.List;
 
 public class Vehiculo {
     private String patente;
@@ -84,6 +87,27 @@ public class Vehiculo {
 
     public Double getCostoKmExcedente() {
         return costoKmExcedente;
+    }
+
+    public void cambiarEstado(EstadoVehiculo nuevoEstado) {
+        this.estado = nuevoEstado;
+    }
+
+    public void actualizarKilometraje(int nuevoKilometraje) {
+        this.kilometraje = nuevoKilometraje;
+    }
+
+    public boolean estaDisponible(LocalDate fechaInicio, LocalDate fechaFin, List<Alquiler> alquileres) {
+        if (this.estado != EstadoVehiculo.DISPONIBLE) return false;
+        for (Alquiler a : alquileres) {
+            if (a.correspondeAVehiculo(this)
+                    && a.getEstado() != EstadoAlquiler.CANCELADO
+                    && a.getEstado() != EstadoAlquiler.FINALIZADO
+                    && a.seSuperpone(fechaInicio, fechaFin)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override

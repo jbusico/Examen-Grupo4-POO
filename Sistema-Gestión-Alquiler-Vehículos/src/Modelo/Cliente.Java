@@ -11,6 +11,7 @@ public class Cliente {
     private String direccion;
     private EstadoCliente estado;
     private LocalDate fechaRegistro;
+    private double creditoAFavor;
 
     public Cliente(String dniCuit, String nombre, String telefono, String email, String direccion) {
         this.dniCuit = dniCuit;
@@ -68,6 +69,18 @@ public class Cliente {
 
     public void setEstado(EstadoCliente estado) {
         this.estado = estado;
+    }
+
+    public void activar() {
+        this.estado = EstadoCliente.ACTIVO;
+    }
+
+    public void agregarCredito(double importe) {
+        this.creditoAFavor += importe;
+    }
+
+    public double getCreditoAFavor() {
+        return creditoAFavor;
     }
 
     public LocalDate getFechaRegistro() {
