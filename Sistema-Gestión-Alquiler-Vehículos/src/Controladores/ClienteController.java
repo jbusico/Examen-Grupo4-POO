@@ -119,4 +119,10 @@ public class ClienteController {
     public List<HistorialCambioEstado> obtenerHistorial() {
         return new ArrayList<>(historial);
     }
+
+    public void resetParaTests() {
+        clientes.clear();
+        historial.clear();
+        contadorHistorial = 0;
+    }
 }

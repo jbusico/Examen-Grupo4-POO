@@ -239,4 +239,11 @@ public class AlquilerController {
     public List<Alquiler> obtenerTodosLosAlquileres() {
         return new ArrayList<>(alquileres);
     }
+
+    public void resetParaTests() {
+        alquileres.clear();
+        historial.clear();
+        contadorAlquiler = 0;
+        contadorHistorial = 0;
+    }
 }

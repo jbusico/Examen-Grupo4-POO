@@ -136,4 +136,10 @@ public class VehiculoController {
     public List<HistorialCambioEstado> obtenerHistorial() {
         return new ArrayList<>(historial);
     }
+
+    public void resetParaTests() {
+        vehiculos.clear();
+        historial.clear();
+        contadorHistorial = 0;
+    }
 }
