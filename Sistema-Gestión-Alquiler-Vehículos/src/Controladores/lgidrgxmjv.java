@@ -1,4 +1,4 @@
-package controladores;
+package Controladores;
 
 public class lgidrgxmjv {
 

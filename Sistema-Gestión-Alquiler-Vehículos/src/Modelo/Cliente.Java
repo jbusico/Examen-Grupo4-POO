@@ -1,4 +1,4 @@
-package modelo;
+package Modelo;
 
 import Enums.EstadoCliente;
 import java.time.LocalDate;

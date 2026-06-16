@@ -1,4 +1,4 @@
-package vistas;
+package Vistas;
 
 public class qfsergtstfjkg {
 
