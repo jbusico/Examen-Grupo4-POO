@@ -1,6 +1,6 @@
 package Vistas;
 
-import Controladores.SistemaController;
+import Controladores.AlquilerController;
 import Enums.TipoVehiculo;
 import Modelo.Vehiculo;
 
@@ -112,7 +112,7 @@ public class VentanaConsultarVehiculos extends JFrame {
 
         TipoVehiculo tipo = (TipoVehiculo) cmbTipo.getSelectedItem();
 
-        List<Vehiculo> resultado = SistemaController.getInstancia()
+        List<Vehiculo> resultado = AlquilerController.getInstance()
                 .consultarVehiculosDisponibles(fechaInicio, fechaFin, tipo);
 
         modeloTabla.setRowCount(0);

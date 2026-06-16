@@ -1,6 +1,6 @@
 package Vistas;
 
-import Controladores.SistemaController;
+import Controladores.ClienteController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -80,14 +80,14 @@ public class VentanaRegistrarCliente extends JFrame {
         }
 
         try {
-            SistemaController.getInstancia()
+            ClienteController.getInstance()
                     .registrarCliente(dniCuit, nombre, telefono, email, direccion, usuario);
 
             JOptionPane.showMessageDialog(this,
                     "Cliente registrado correctamente.",
                     "Éxito", JOptionPane.INFORMATION_MESSAGE);
             limpiar();
-        } catch (IllegalArgumentException ex) {
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(this,
                     ex.getMessage(),
                     "Error", JOptionPane.ERROR_MESSAGE);
