@@ -33,7 +33,6 @@ public class AlquilerController {
 
     /**
      * UC3: Solicitar un alquiler
-     * Crea una instancia de Alquiler según el tipo especificado
      */
     public Alquiler solicitarAlquiler(Cliente cliente, Vehiculo vehiculo,
             LocalDate fechaInicio, LocalDate fechaDevolucion,
@@ -63,42 +62,17 @@ public class AlquilerController {
         Alquiler alquiler;
         contadorAlquiler++;
 
-        // ============================================================================
-        // SECCIÓN: INSTANCIACIÓN DE CLASES HIJO DE ALQUILER
-        // ============================================================================
-        // Aquí se crean las instancias de Alquiler según el tipo
-        // Las clases AlquilerComun, AlquilerCorporativo y AlquilerTuristico
-        // deben estar en el paquete Modelo
-        // ============================================================================
-
         if ("COMUN".equalsIgnoreCase(tipoAlquiler)) {
-            // TODO: Cuando AlquilerComun.java esté creada, descomenta esta línea:
-            // alquiler = new AlquilerComun(contadorAlquiler, cliente, vehiculo,
-            // fechaInicio, fechaDevolucion, 0);
-            alquiler = null; // TEMPORAL
-
+            alquiler = new AlquilerComun(contadorAlquiler, cliente, vehiculo,
+                    fechaInicio, fechaDevolucion, 0);
         } else if ("CORPORATIVO".equalsIgnoreCase(tipoAlquiler)) {
-            // TODO: Cuando AlquilerCorporativo.java esté creada, descomenta esta línea:
-            // alquiler = new AlquilerCorporativo(contadorAlquiler, cliente, vehiculo,
-            // fechaInicio, fechaDevolucion, 0);
-            alquiler = null; // TEMPORAL
-
+            alquiler = new AlquilerCorporativo(contadorAlquiler, cliente, vehiculo,
+                    fechaInicio, fechaDevolucion, 0);
         } else if ("TURISTICO".equalsIgnoreCase(tipoAlquiler)) {
-            // TODO: Cuando AlquilerTuristico.java esté creada, descomenta esta línea:
-            // alquiler = new AlquilerTuristico(contadorAlquiler, cliente, vehiculo,
-            // fechaInicio, fechaDevolucion, 0);
-            alquiler = null; // TEMPORAL
-
+            alquiler = new AlquilerTuristico(contadorAlquiler, cliente, vehiculo,
+                    fechaInicio, fechaDevolucion, 0);
         } else {
             throw new Exception("Error: Tipo de alquiler inválido: " + tipoAlquiler);
-        }
-
-        // ============================================================================
-        // FIN SECCIÓN: INSTANCIACIÓN DE CLASES HIJO DE ALQUILER
-        // ============================================================================
-
-        if (alquiler == null) {
-            throw new Exception("Error: No se pudo crear el alquiler");
         }
 
         // Establecer estado como INGRESADO
@@ -131,7 +105,6 @@ public class AlquilerController {
 
     /**
      * UC4: Finalizar alquiler y calcular saldo
-     * Calcula el monto final considerando recargos, descuentos y km excedentes
      */
     public double finalizarAlquilerYCalcularSaldo(int idAlquiler, int kilometrajeFinal,
             LocalDate fechaDevolucionReal,
@@ -150,9 +123,6 @@ public class AlquilerController {
         alquiler.getVehiculo().setKilometraje(kilometrajeFinal);
 
         // Calcular importe total
-        // NOTA: El cálculo varía según el tipo de alquiler (Común, Corporativo,
-        // Turístico)
-        // Cada subclase de Alquiler implementa calcularImporteTotal() diferente
         double importeTotal = alquiler.calcularImporteTotal();
         double importePago = importeTotal - alquiler.getSeñaAbonada();
 
@@ -206,25 +176,7 @@ public class AlquilerController {
     }
 
     /**
-     * UC5: Consultar vehículos disponibles
-     * Retorna lista de vehículos disponibles en un período y tipo específico
-     */
-    public List<Vehiculo> consultarVehiculosDisponibles(LocalDate fechaInicio, LocalDate fechaFin,
-            TipoVehiculo tipoVehiculo) {
-        VehiculoController vehiculoController = VehiculoController.getInstance();
-        List<Vehiculo> vehiculosDelTipo = vehiculoController.obtenerVehiculosPorTipo(tipoVehiculo);
-
-        List<Vehiculo> resultado = new ArrayList<>();
-        for (Vehiculo v : vehiculosDelTipo) {
-            if (estaVehiculoDisponible(v, fechaInicio, fechaFin)) {
-                resultado.add(v);
-            }
-        }
-        return resultado;
-    }
-
-    /**
-     * Verificar si un vehículo está disponible en un período determinado
+     * Verificar si un vehículo está disponible en un período
      */
     private boolean estaVehiculoDisponible(Vehiculo vehiculo, LocalDate fechaInicio, LocalDate fechaDevolucion) {
         for (Alquiler a : alquileres) {
@@ -246,7 +198,24 @@ public class AlquilerController {
     }
 
     /**
-     * Registrar cambio de estado en el historial de auditoría
+     * UC5: Consultar vehículos disponibles
+     */
+    public List<Vehiculo> consultarVehiculosDisponibles(LocalDate fechaInicio, LocalDate fechaFin,
+            TipoVehiculo tipoVehiculo) {
+        VehiculoController vehiculoController = VehiculoController.getInstance();
+        List<Vehiculo> vehiculosDelTipo = vehiculoController.obtenerVehiculosPorTipo(tipoVehiculo);
+
+        List<Vehiculo> resultado = new ArrayList<>();
+        for (Vehiculo v : vehiculosDelTipo) {
+            if (estaVehiculoDisponible(v, fechaInicio, fechaFin)) {
+                resultado.add(v);
+            }
+        }
+        return resultado;
+    }
+
+    /**
+     * Registrar cambio de estado en el historial
      */
     private void registrarCambioEstado(String estadoAnterior, String estadoNuevo,
             String tipoEntidad, String referencia, String usuario) {
@@ -258,14 +227,14 @@ public class AlquilerController {
     }
 
     /**
-     * Obtener historial de cambios de estado
+     * Obtener historial de cambios
      */
     public List<HistorialCambioEstado> obtenerHistorial() {
         return new ArrayList<>(historial);
     }
 
     /**
-     * Obtener todos los alquileres registrados
+     * Obtener todos los alquileres
      */
     public List<Alquiler> obtenerTodosLosAlquileres() {
         return new ArrayList<>(alquileres);
