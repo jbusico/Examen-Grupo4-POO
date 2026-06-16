@@ -1,10 +1,9 @@
-package Modelo;
+package modelo;
 
+import enums.EstadoAlquiler;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
-import Enums.EstadoAlquiler;
 
 public abstract class Alquiler {
     private int idAlquiler;

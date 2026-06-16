@@ -1,8 +1,8 @@
-package Modelo;
+package modelo;
 
-import Enums.EstadoPago;
-import Enums.MedioPago;
-import Enums.TipoPago;
+import enums.EstadoPago;
+import enums.MedioPago;
+import enums.TipoPago;
 import java.time.LocalDate;
 
 public class Pago {

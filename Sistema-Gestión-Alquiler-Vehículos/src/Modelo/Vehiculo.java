@@ -1,8 +1,8 @@
-package Modelo;
+package modelo;
 
-import Enums.EstadoVehiculo;
-import Enums.TipoCombustible;
-import Enums.TipoVehiculo;
+import enums.EstadoVehiculo;
+import enums.TipoCombustible;
+import enums.TipoVehiculo;
 
 public class Vehiculo {
     private String patente;
